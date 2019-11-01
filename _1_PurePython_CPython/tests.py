@@ -8,7 +8,8 @@ from src import BinarySearchTree
 class TestBinaryTree(unittest.TestCase):
 
     def test_create_from_list(self):
-        # ==== which is equivalent to:
+        # This method creates a fully-populated binary-search-tree of depth 4, on the numbers: [0, 30]:
+        #
         #                 ___________________15_____________________
         #                /                                          \
         #         ______7_______                           __________23_________
@@ -19,19 +20,15 @@ class TestBinaryTree(unittest.TestCase):
         #  / \     / \     / \       /   \       /   \       /   \       /   \       /   \
         # 0   2   4   6   8   10    12    14    16    18    20    22    24    26    28    30
         #
-        # this creates a fully-populated binary-search-tree of depth 4, on the numbers: [0, 30]
-
-        # if we add the above values in the correct order, the tree is balanced, for free.
-        bst = BinarySearchTree([         15,
-                            7,                           23,
-                     3,          11,             19,             27,
-                  1,    5,    9,     13,     17,     21,     25,     29,
-                0,  2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30])
+        # If we add the above values in the correct order, the tree is balanced, for free.
+        bst = BinarySearchTree([15,
+                                7, 23,
+                                3, 11, 19, 27,
+                                1, 5, 9, 13, 17, 21, 25, 29,
+                                0,  2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30])
 
         # # DEBUG
-        # print("===")
         # print(bst)
-        # print("===")
 
         # spot check -- *not full* check:
         self.assertEqual(bst.root.value, 15)

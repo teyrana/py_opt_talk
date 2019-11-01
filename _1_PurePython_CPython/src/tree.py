@@ -29,5 +29,6 @@ class BinarySearchTree:
             return self.root.search(value)
 
     def __str__(self) -> str:
+
         if None is not self.root:
-            return str(self.root)
+            return "====" + str(self.root) + "===="
