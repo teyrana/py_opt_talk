@@ -1,0 +1,4 @@
+build/
+bst/*.c
+bst/*.cpp
+bst/*.html

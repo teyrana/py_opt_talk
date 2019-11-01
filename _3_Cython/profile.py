@@ -3,50 +3,40 @@
 import time
 import random
 
-from src import BinarySearchTree
-
+import bst
 
 def create_tree():
-    """
-         ==== which is equivalent to:
-                         ___________________15_____________________
-                        /                                          \
-                 ______7_______                           __________23_________
-                /              \                         /                     \
-             __3__           ___11___               ____19___               ____27___
-            /     \         /        \             /         \             /         \
-           1       5       9         _13         _17         _21         _25         _29
-          / \     / \     / \       /   \       /   \       /   \       /   \       /   \
-         0   2   4   6   8   10    12    14    16    18    20    22    24    26    28    30
+    """This method creates a fully-populated binary-search-tree of depth 4, on the numbers: [0, 30]"""
 
-         this creates a fully-populated binary-search-tree of depth 4, on the numbers: [0, 30]
-    """
+    #
+    #                 ___________________15_____________________
+    #                /                                          \
+    #         ______7_______                           __________23_________
+    #        /              \                         /                     \
+    #     __3__           ___11___               ____19___               ____27___
+    #    /     \         /        \             /         \             /         \
+    #   1       5       9         _13         _17         _21         _25         _29
+    #  / \     / \     / \       /   \       /   \       /   \       /   \       /   \
+    # 0   2   4   6   8   10    12    14    16    18    20    22    24    26    28    30
+    #
 
-    # if we add the above values in a certain order, the tree is balanced, for free.
-    bst = BinarySearchTree([         15,
-                        7,                           23,
-                 3,          11,             19,             27,
-              1,    5,    9,     13,     17,     21,     25,     29,
-            0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30])
-
-    return bst
+    # If we add the above values in the correct order, the tree is balanced, for free.
+    root = bst.new([15,
+                    7, 23,
+                    3, 11, 19, 27,
+                    1, 5, 9, 13, 17, 21, 25, 29,
+                    0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30])
+    return root
 
 
-def dump_tree(tree):
-    # DEBUG
-    print("===")
-    print(tree)
-    print("===")
-
-
-def run_time_trial(maxvalue, ncount = 100):
+def run_time_trial(root, maxvalue, ncount = 100):
 
     start = time.process_time()
 
     # do the thing
     for _ in range(ncount):
         search_value = random.random() * maxvalue
-        _ = bst.search(search_value)
+        _ = bst.search(root, search_value)
 
     end = time.process_time()
 
@@ -57,8 +47,8 @@ def run_time_trial(maxvalue, ncount = 100):
 
 if __name__ == '__main__':
 
-    bst = create_tree()
+    root = create_tree()
 
-    # dump_tree(bst)
+    # dump_tree(root)
 
-    run_time_trial(30, ncount=1000000)
+    run_time_trial(root, 30, ncount=1000000)
