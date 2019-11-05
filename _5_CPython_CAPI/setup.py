@@ -5,6 +5,6 @@ from distutils.core import setup, Extension
 setup(
     name="BinarySearchTree",
     ext_modules=[
-        Extension("BinarySearchTree", sources=["bst/tree.c"]),
+        Extension("BinarySearchTree", sources=["bst/tree.c", "bst/node.c"]),
     ]
 )

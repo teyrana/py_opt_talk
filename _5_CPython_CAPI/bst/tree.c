@@ -2,72 +2,12 @@
 
 #include "Python.h"
 
-typedef struct _binary_tree_node {
-    struct _binary_tree_node * left;
-    struct _binary_tree_node * right;
-    int value;
-} BinarySearchNode;
+#include "node.h"
 
 typedef struct _binary_search_tree {
     PyObject_HEAD;
     BinarySearchNode * root;
 } BinarySearchTree;
-
-
-
-BinarySearchNode* node_new( int init_value){
-    BinarySearchNode * root = malloc(sizeof(BinarySearchNode));
-    root->value = init_value;
-    root->left = NULL;
-    root->right = NULL;
-    return root;
-}
-
-void node_add( BinarySearchNode * node, int new_value){
-    // ignore null-case-check
-    if( new_value != node->value ){
-        if( new_value < node->value ){
-            if( NULL == node->left ){
-                node->left = node_new(new_value);
-            }else{
-                node_add(node->left, new_value);
-            }
-        }else{
-            if( NULL == node->right ){
-                node->right = node_new(new_value);
-            }else{
-                node_add(node->right, new_value);
-            }
-        }
-    }
-}
-
-void node_free( BinarySearchNode* node){
-    if( NULL != node->left ){
-        node_free(node->left);
-        node->left = NULL;
-    }
-    if( NULL != node->right ){
-        node_free(node->right);
-        node->right = NULL;
-    }
-    free(node);
-}
-
-
-int node_search( BinarySearchNode * node, int search_value){
-    // ignore null check
-    if( NULL == node ){
-        return -1;
-    }else if( search_value == node->value ){
-        return node->value;
-    }else if( (search_value < node->value) && (NULL != node->left) ){
-        return node_search(node->left, search_value);
-    }else if( (search_value > node->value) && (NULL != node->right) ){
-        return node_search(node->right, search_value);
-    }
-    return -1;
-}
 
 static int BinarySearchTree_init(BinarySearchTree *self, PyObject *args){
     self->root = NULL;
@@ -82,13 +22,11 @@ static int BinarySearchTree_init(BinarySearchTree *self, PyObject *args){
 
     if( PyLong_Check(PyList_GetItem(list, 0)) ){
         int root_value = PyLong_AsLong( PyList_GetItem(list, 0) );
-//        fprintf(stderr, "[0]: %d \n", root_value );
         self->root = node_new( root_value );
     }
 
     for( int i=1; i < PyList_Size(list); ++i ){
         int each_value = PyLong_AsLong( PyList_GetItem(list, i) );
-        //fprintf(stderr, "[%d] = %d \n", i, each_value );
         node_add( self->root, each_value );
     }
 
